@@ -61,7 +61,6 @@ export function renderState(state: GameState): void {
   text("#inputStatus", status);
 
   renderHistory(state);
-  el<HTMLButtonElement>("#exportBtn").disabled = state.log.length === 0;
 }
 
 function renderHistory(state: GameState): void {

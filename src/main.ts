@@ -1,7 +1,6 @@
 import { expectedSide } from "./core/baccaratRules.js";
 import { cloneState, newState } from "./core/state.js";
 import { submitHand } from "./core/engine.js";
-import { buildCsv } from "./data/csv.js";
 import { loadActiveTab, loadTab, saveActiveTab, saveTab, type TabId } from "./data/storage.js";
 import { renderState, renderTabs } from "./ui/render.js";
 
@@ -102,17 +101,6 @@ function clearHistory(): void {
   rerender();
 }
 
-function exportCsv(): void {
-  if (!state.log.length) return;
-  const blob = new Blob([buildCsv(state)], { type: "text/csv;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `Monster_V2_Tab${activeTab}_${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
 function bind(): void {
   document.querySelectorAll<HTMLButtonElement>("[data-card]").forEach((button) => {
     button.addEventListener("click", () => pushCard(Number(button.dataset.card)));
@@ -124,7 +112,6 @@ function bind(): void {
   document.querySelector("#redoBtn")?.addEventListener("click", redoHand);
   document.querySelector("#resetBtn")?.addEventListener("click", resetShoe);
   document.querySelector("#clearHistoryBtn")?.addEventListener("click", clearHistory);
-  document.querySelector("#exportBtn")?.addEventListener("click", exportCsv);
 }
 
 renderTabs(activeTab, switchTab);
