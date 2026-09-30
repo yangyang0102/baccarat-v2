@@ -1,4 +1,4 @@
-const CACHE = "baccarat-v2-0.1.0";
+const CACHE = "baccarat-v2-0.1.2";
 const ASSETS = ["./", "./index.html", "./styles.css", "./js/main.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)).then(() => self.skipWaiting()));

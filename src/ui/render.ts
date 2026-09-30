@@ -46,11 +46,6 @@ export function renderState(state: GameState): void {
   text("#handNo", String(state.stats.handNo));
   text("#wlt", `${state.stats.bankerWins} / ${state.stats.playerWins} / ${state.stats.ties}`);
   text("#pickStats", `${state.stats.pickWins} / ${state.stats.pickLosses} / ${state.stats.pickTies} / ${state.stats.pickSkipped}`);
-  text("#courseWins", `${state.stats.courseWins} / 6`);
-  text("#courseProgress", `${state.stats.courseProgress} / 7`);
-
-  const courseBar = el<HTMLDivElement>("#courseBar");
-  courseBar.style.setProperty("--progress", `${Math.min(state.stats.courseWins / 6, 1) * 100}%`);
 
   el("#pCards").innerHTML = handHtml(state.keypad.p, "P");
   el("#bCards").innerHTML = handHtml(state.keypad.b, "B");
@@ -66,8 +61,7 @@ export function renderState(state: GameState): void {
   text("#inputStatus", status);
 
   renderHistory(state);
-  const exportButton = el<HTMLButtonElement>("#exportBtn");
-  exportButton.disabled = !state.stats.courseDone;
+  el<HTMLButtonElement>("#exportBtn").disabled = state.log.length === 0;
 }
 
 function renderHistory(state: GameState): void {

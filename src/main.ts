@@ -103,7 +103,7 @@ function clearHistory(): void {
 }
 
 function exportCsv(): void {
-  if (!state.stats.courseDone) return;
+  if (!state.log.length) return;
   const blob = new Blob([buildCsv(state)], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");

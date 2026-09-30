@@ -10,9 +10,24 @@ export function newStats(): Stats {
     pickLosses: 0,
     pickTies: 0,
     pickSkipped: 0,
-    courseWins: 0,
-    courseProgress: 0,
-    courseDone: false,
+  };
+}
+
+function numberOrZero(value: unknown): number {
+  return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+function normalizeStats(input: unknown): Stats {
+  const source = input && typeof input === "object" ? input as Record<string, unknown> : {};
+  return {
+    handNo: numberOrZero(source.handNo),
+    bankerWins: numberOrZero(source.bankerWins),
+    playerWins: numberOrZero(source.playerWins),
+    ties: numberOrZero(source.ties),
+    pickWins: numberOrZero(source.pickWins),
+    pickLosses: numberOrZero(source.pickLosses),
+    pickTies: numberOrZero(source.pickTies),
+    pickSkipped: numberOrZero(source.pickSkipped),
   };
 }
 
@@ -33,7 +48,7 @@ export function normalizeState(input: Partial<GameState> | null | undefined): Ga
   return {
     ...base,
     ...input,
-    stats: { ...base.stats, ...(input.stats ?? {}) },
+    stats: normalizeStats(input.stats),
     log: Array.isArray(input.log) ? input.log.slice(0, 200) : [],
     keypad: {
       ...base.keypad,

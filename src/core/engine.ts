@@ -1,5 +1,5 @@
 import { assertCardRank, handTotal, winnerLabel } from "./cards.js";
-import { settlePendingPick } from "./course.js";
+import { settlePendingPick } from "./settlement.js";
 import { nextPick } from "./strategy.js";
 import type { GameState, Winner } from "./types.js";
 

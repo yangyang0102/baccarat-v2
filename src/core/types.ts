@@ -12,9 +12,6 @@ export interface Stats {
   pickLosses: number;
   pickTies: number;
   pickSkipped: number;
-  courseWins: number;
-  courseProgress: number;
-  courseDone: boolean;
 }
 
 export interface KeypadState {

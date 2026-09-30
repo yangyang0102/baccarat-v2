@@ -3,9 +3,8 @@ import assert from "node:assert/strict";
 import { handTotal, winnerLabel } from "../dist/js/core/cards.js";
 import { bankerShouldDraw, isNatural } from "../dist/js/core/baccaratRules.js";
 import { nextPick } from "../dist/js/core/strategy.js";
-import { newState } from "../dist/js/core/state.js";
+import { newState, normalizeState } from "../dist/js/core/state.js";
 import { submitHand } from "../dist/js/core/engine.js";
-import { updateCourseAfterPickResult } from "../dist/js/core/course.js";
 
 test("baccarat card totals", () => {
   assert.equal(handTotal([1,9]), 0);
@@ -37,16 +36,19 @@ test("pending pick settles against the following hand", () => {
   assert.equal(state.pendingPick, "閒家");
   state = submitHand(state, [9,8], [2,2], 3);
   assert.equal(state.stats.pickWins, 1);
-  assert.equal(state.stats.courseWins, 1);
 });
 
-test("course completes at six wins and loss progress wraps at seven", () => {
-  let stats = newState().stats;
-  for (let i=0;i<6;i++) stats = updateCourseAfterPickResult(stats, "贏");
-  assert.equal(stats.courseDone, true);
-  assert.equal(stats.courseWins, 6);
-
-  let lossStats = newState().stats;
-  for (let i=0;i<7;i++) lossStats = updateCourseAfterPickResult(lossStats, "輸");
-  assert.equal(lossStats.courseProgress, 0);
+test("legacy course fields are discarded when loading old state", () => {
+  const state = normalizeState({
+    ...newState(),
+    stats: {
+      ...newState().stats,
+      courseWins: 6,
+      courseProgress: 4,
+      courseDone: true,
+    },
+  });
+  assert.equal("courseWins" in state.stats, false);
+  assert.equal("courseProgress" in state.stats, false);
+  assert.equal("courseDone" in state.stats, false);
 });
