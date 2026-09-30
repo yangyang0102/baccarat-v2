@@ -29,7 +29,10 @@
             <span class="eyebrow">本局輸入</span>
             <h2 id="inputStatus">請輸入閒家第 1 張</h2>
           </div>
-          <button id="backspaceBtn" class="small-button">退一張</button>
+          <div class="inline-actions">
+            <button id="clearInputBtn" class="small-button">清空</button>
+            <button id="backspaceBtn" class="small-button">退一張</button>
+          </div>
         </div>
 
         <div class="hands-grid">
@@ -44,10 +47,10 @@
         </div>
 
         <div class="keypad" aria-label="牌面輸入">
-          <button data-card="1">A</button><button data-card="2">2</button><button data-card="3">3</button><button data-card="4">4</button>
-          <button data-card="5">5</button><button data-card="6">6</button><button data-card="7">7</button><button data-card="8">8</button>
-          <button data-card="9">9</button><button data-card="10">10</button><button data-card="11">J</button><button data-card="12">Q</button>
-          <button data-card="13">K</button><button id="clearInputBtn" class="key-secondary">清空</button>
+          <button data-card="1">1</button><button data-card="2">2</button><button data-card="3">3</button>
+          <button data-card="4">4</button><button data-card="5">5</button><button data-card="6">6</button>
+          <button data-card="7">7</button><button data-card="8">8</button><button data-card="9">9</button>
+          <button data-card="10">10</button><button data-card="11">J</button><button data-card="12">Q</button><button data-card="13">K</button>
         </div>
 
         <button id="submitBtn" class="primary-action">送出本局</button>
@@ -61,7 +64,7 @@
 
       <section class="panel course-panel">
         <div class="course-heading">
-          <div><span class="eyebrow">課程進度</span><h2 id="courseStatus">課程進行中</h2></div>
+          <span class="eyebrow">課程進度</span>
           <strong id="courseWins">0 / 6</strong>
         </div>
         <div id="courseBar" class="course-bar"><i></i></div>

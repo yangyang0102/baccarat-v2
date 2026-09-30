@@ -51,7 +51,6 @@ export function renderState(state: GameState): void {
 
   const courseBar = el<HTMLDivElement>("#courseBar");
   courseBar.style.setProperty("--progress", `${Math.min(state.stats.courseWins / 6, 1) * 100}%`);
-  text("#courseStatus", state.stats.courseDone ? "課程完成" : "課程進行中");
 
   el("#pCards").innerHTML = handHtml(state.keypad.p, "P");
   el("#bCards").innerHTML = handHtml(state.keypad.b, "B");
