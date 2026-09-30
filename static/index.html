@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0c10" />
+  <title>Monster Baccarat V2</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="brand-kicker">MONSTER / BACCARAT</p>
+        <h1>百家輔助 V2</h1>
+      </div>
+      <button class="ghost-icon" id="resetBtn" aria-label="重置牌靴">↻</button>
+    </header>
+
+    <nav id="tabs" class="tabs" aria-label="牌桌切換"></nav>
+
+    <main>
+      <section id="nextPickHero" class="pick-hero watch"></section>
+
+      <section class="panel input-panel">
+        <div class="panel-heading">
+          <div>
+            <span class="eyebrow">本局輸入</span>
+            <h2 id="inputStatus">請輸入閒家第 1 張</h2>
+          </div>
+          <button id="backspaceBtn" class="small-button">退一張</button>
+        </div>
+
+        <div class="hands-grid">
+          <div class="hand-box player-box">
+            <div class="hand-top"><span>閒家</span><strong id="pTotal">0</strong></div>
+            <div id="pCards" class="mini-cards"></div>
+          </div>
+          <div class="hand-box banker-box">
+            <div class="hand-top"><span>莊家</span><strong id="bTotal">0</strong></div>
+            <div id="bCards" class="mini-cards"></div>
+          </div>
+        </div>
+
+        <div class="keypad" aria-label="牌面輸入">
+          <button data-card="1">A</button><button data-card="2">2</button><button data-card="3">3</button><button data-card="4">4</button>
+          <button data-card="5">5</button><button data-card="6">6</button><button data-card="7">7</button><button data-card="8">8</button>
+          <button data-card="9">9</button><button data-card="10">10</button><button data-card="11">J</button><button data-card="12">Q</button>
+          <button data-card="13">K</button><button id="clearInputBtn" class="key-secondary">清空</button>
+        </div>
+
+        <button id="submitBtn" class="primary-action">送出本局</button>
+      </section>
+
+      <section class="metrics-grid">
+        <article class="metric"><span>局數</span><strong id="handNo">0</strong></article>
+        <article class="metric"><span>莊 / 閒 / 和</span><strong id="wlt">0 / 0 / 0</strong></article>
+        <article class="metric wide"><span>建議結果｜贏 / 輸 / 和 / 略過</span><strong id="pickStats">0 / 0 / 0 / 0</strong></article>
+      </section>
+
+      <section class="panel course-panel">
+        <div class="course-heading">
+          <div><span class="eyebrow">課程進度</span><h2 id="courseStatus">課程進行中</h2></div>
+          <strong id="courseWins">0 / 6</strong>
+        </div>
+        <div id="courseBar" class="course-bar"><i></i></div>
+        <div class="course-sub">目前 7 局段落進度 <strong id="courseProgress">0 / 7</strong></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading history-heading">
+          <div><span class="eyebrow">牌局紀錄</span><h2>最新紀錄</h2></div>
+          <div class="inline-actions">
+            <button id="undoBtn" class="small-button">撤銷</button>
+            <button id="redoBtn" class="small-button">復原</button>
+          </div>
+        </div>
+        <div id="history" class="history"></div>
+      </section>
+
+      <section class="utility-row">
+        <button id="clearHistoryBtn" class="utility">清除紀錄</button>
+        <button id="exportBtn" class="utility" disabled>下載 CSV</button>
+      </section>
+
+      <p class="disclaimer">僅供牌局紀錄與策略輔助參考；不保證任何結果。</p>
+    </main>
+  </div>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "baccarat-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "dev": "npm run build && node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
