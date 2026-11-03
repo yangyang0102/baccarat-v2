@@ -19,23 +19,34 @@ test("natural and banker third-card table", () => {
   assert.equal(bankerShouldDraw(6,5), false);
 });
 
-test("strategy remains compatible with HV/AG/TP logic", () => {
-  const first = nextPick([1,2], [3,4], null, null);
-  assert.equal(first.nextPick, null);
-  const second = nextPick([5,2], [7,1], first.pTotal, first.bTotal);
-  assert.equal(second.tpP, -5);
-  assert.equal(second.tpB, -0.6);
-  assert.equal(second.nextPick, "閒家");
+test("strategy uses player + banker + 3 parity rule", () => {
+  const even = nextPick([2,3], [1,5], null, null);
+  assert.equal(even.pTotal, 5);
+  assert.equal(even.bTotal, 6);
+  assert.equal(even.pTotal + even.bTotal + 3, 14);
+  assert.equal(even.nextPick, "閒家");
+  assert.equal(even.tpP, null);
+  assert.equal(even.tpB, null);
+
+  const odd = nextPick([1,3], [1,5], null, null);
+  assert.equal(odd.pTotal, 4);
+  assert.equal(odd.bTotal, 6);
+  assert.equal(odd.pTotal + odd.bTotal + 3, 13);
+  assert.equal(odd.nextPick, "莊家");
 });
 
 test("pending pick settles against the following hand", () => {
   let state = newState();
+
   state = submitHand(state, [1,2], [3,4], 1);
-  assert.equal(state.pendingPick, null);
+  assert.equal(state.pendingPick, "莊家");
+
   state = submitHand(state, [5,2], [7,1], 2);
-  assert.equal(state.pendingPick, "閒家");
-  state = submitHand(state, [9,8], [2,2], 3);
   assert.equal(state.stats.pickWins, 1);
+  assert.equal(state.pendingPick, "閒家");
+
+  state = submitHand(state, [9,8], [2,2], 3);
+  assert.equal(state.stats.pickWins, 2);
 });
 
 test("legacy course fields are discarded when loading old state", () => {
