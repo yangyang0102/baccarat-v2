@@ -69,15 +69,20 @@ function renderHistory(state: GameState): void {
     root.innerHTML = `<div class="empty-history">尚無牌局紀錄</div>`;
     return;
   }
-  root.innerHTML = state.log.map((row, index) => `
-    <article class="history-row ${index === 0 ? "latest" : ""}">
-      <div class="history-main">
-        <span class="hand-index">#${row.n}</span>
-        <strong class="winner ${row.win === "莊家" ? "banker" : row.win === "閒家" ? "player" : "tie"}">${row.win}</strong>
-        <span>上局 ${row.prevPick} → ${row.prevPickResult}</span>
-        <span>下局 ${row.nextPick}</span>
-      </div>
-      <div class="history-sub">閒 ${row.pTotal} ・ 莊 ${row.bTotal} ・ TP ${row.tpP ?? "—"} / ${row.tpB ?? "—"}</div>
-    </article>
-  `).join("");
+  root.innerHTML = state.log.map((row, index) => {
+    const adjustedTotal = row.pTotal + row.bTotal + 3;
+    const parity = adjustedTotal % 2 === 0 ? "偶數" : "單數";
+
+    return `
+      <article class="history-row ${index === 0 ? "latest" : ""}">
+        <div class="history-main">
+          <span class="hand-index">#${row.n}</span>
+          <strong class="winner ${row.win === "莊家" ? "banker" : row.win === "閒家" ? "player" : "tie"}">${row.win}</strong>
+          <span>上局 ${row.prevPick} → ${row.prevPickResult}</span>
+          <span>下局 ${row.nextPick}</span>
+        </div>
+        <div class="history-sub">閒 ${row.pTotal} ・ 莊 ${row.bTotal} ・ +3 = ${adjustedTotal}（${parity}）</div>
+      </article>
+    `;
+  }).join("");
 }
